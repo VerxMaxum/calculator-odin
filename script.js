@@ -28,16 +28,26 @@ function divide(n1, n2) {
 }
 
 function getFirstNumber(displayText) {
-    const numbers = displayText.split(getOperator(displayText));
+    const length = displayText.length;
+    let operatorIndex = 0;
+    for(let i = 1; i < displayText.length; i++) {
+        let character = displayText.charAt(i);
+        if(character === '+' || character === '-' || character === `\u{00F7}` || character === `\u{00D7}`){
+            operatorIndex = i;
+            break;
+        }
+    }
+    console.log('Inside getFirstNumber' + displayText.substring(0, operatorIndex) + ' operator index: ' + operatorIndex);
 
-    return numbers[0];
+    return displayText.slice(0, operatorIndex);
 }
 
 function getOperator(displayText) {
     let operator = "";
-    for(let character of displayText) {
-        if(character === '+' || character === '-' || character === `\u{00F7}` || character === `\u{00D7}`) {
-            operator = character;
+    for(let i = 1; i < displayText.length; i++) {
+        if(displayText.charAt(i) === '+' || displayText.charAt(i) === '-'
+        || displayText.charAt(i) === `\u{00F7}` || displayText.charAt(i) === `\u{00D7}`) {
+            operator = displayText.charAt(i);
             break;
         }
     }
@@ -46,8 +56,9 @@ function getOperator(displayText) {
 
 function previousOperator(displayText) {
     let hasPreviousOperator = false;
-    for(let i = 0; i < displayText.length; i++) {
-        if(displayText.charAt(i) === '+' || displayText.charAt(i) === '-' || displayText.charAt(i) === `\u{00F7}` || displayText.charAt(i) === `\u{00D7}`) {
+    for(let i = 1; i < displayText.length; i++) {
+        if(displayText.charAt(i) === '+' || displayText.charAt(i) === '-'
+        || displayText.charAt(i) === `\u{00F7}` || displayText.charAt(i) === `\u{00D7}`) {
             hasPreviousOperator = true;
             break;
         }
@@ -56,34 +67,53 @@ function previousOperator(displayText) {
 }
 
 function getSecondNumber(displayText) {
-    const numbers = displayText.split(`${getOperator(displayText)}`);
-    console.table(numbers);
-    return numbers[1];
+    for(let i = 1; i < displayText.length; i++) {
+        let character = displayText.charAt(i);
+        if(character === '+' || character === '-' || character === `\u{00F7}` || character === `\u{00D7}`){
+            operatorIndex = i;
+            break;
+        }
+    }
+    return displayText.substring(operatorIndex+1);
 }
 
-function isOperatorOrDot(text) {
-    return text === '+' || text === '-' || text === `\u{00F7}` || text === `\u{00D7}` || text === '.';
+function isOperator(text) {
+    return text === '+' || text === '-' || text === `\u{00F7}` || text === `\u{00D7}`;
+}
+
+function isDot(text) {
+    return text === '.';
+}
+
+function clear() {
+    displayText = "";
+    document.getElementById('display-text').textContent = displayText;
 }
 
 function display(event) {
     const button = event.target;
     const buttonText = button.textContent;
-    
-    if(isOperatorOrDot(buttonText) && isOperatorOrDot(displayText[displayText.length-1])) {
+    let length = displayText.length;
+
+    if(length === 0 && (buttonText === '+' || buttonText === `\u{00F7}` || buttonText === `\u{00D7}`)) {
         return;
     }
-    if(isOperatorOrDot(buttonText) && previousOperator(displayText)) {
+    if((isOperator(buttonText) || isDot(buttonText)) && 
+       (isOperator(displayText[displayText.length-1]) || isDot(displayText[displayText.length-1]))) {
+        return;
+    }
+    if((isOperator(buttonText) || isDot(buttonText)) && previousOperator(displayText)) {
         operate();
     }
     displayText += buttonText;
-    document.getElementById('display-text').textContent = displayText;
-}
-
-function operate() {
-    if(!previousOperator(displayText)) {
-        return;
+    if(length > 15) {
+        displayText = "";
     }
-
+    document.getElementById('display-text').textContent = displayText;
+    
+}
+// solve for minus sign as first symbol and display before operator
+function operate() {
     let firstNum = parseFloat(getFirstNumber(displayText));
     let operator = getOperator(displayText);
     let secondNum = parseFloat(getSecondNumber(displayText));
@@ -110,10 +140,5 @@ function operate() {
         displayText = displayText.substring(0,15);
     }
     console.log("result = " + result);
-    document.getElementById('display-text').textContent = displayText;
-}
-
-function clear() {
-    displayText = "";
     document.getElementById('display-text').textContent = displayText;
 }
