@@ -80,6 +80,10 @@ function display(event) {
 }
 
 function operate() {
+    if(!previousOperator(displayText)) {
+        return;
+    }
+
     let firstNum = parseFloat(getFirstNumber(displayText));
     let operator = getOperator(displayText);
     let secondNum = parseFloat(getSecondNumber(displayText));
