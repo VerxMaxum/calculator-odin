@@ -1,0 +1,76 @@
+@import url('https://fonts.cdnfonts.com/css/calculator');
+
+body {
+    display: flex;
+    margin-top: 64px;
+    justify-content: center;
+    align-items: center;
+}
+
+#calculator-body {
+    width: 500px;
+    height: auto;
+    border: 2px rgb(165, 165, 165) solid;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    background-color: #A6D0DD;
+}
+
+#display {
+    width: 400px;
+    height: 100px;
+    border: 2px rgb(165, 165, 165) solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    background-color: #f5f6fa;
+    margin-bottom: 40px;
+}
+
+#display-text {
+    font-family: 'Calculator', Arial;
+    text-align: right;
+    margin-right: 16px;
+    margin-bottom: 16px;
+    font-size: 56px;
+}
+
+#buttons{
+    width: 100%;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+#first,
+#second,
+#third {
+    margin-bottom: 20px;
+}
+
+.input-button {
+    width: 90px;
+    height: 90px;
+    font-size: 40px;
+    color: black;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.input-button.number {
+    background-color: #FFF9DE;
+}
+
+.input-button.operator {
+    background-color: #FFD3B0;
+}
+
+.input-button#result {
+    background-color: #FF6969;
+}
