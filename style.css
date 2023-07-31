@@ -26,16 +26,9 @@ body {
     border: 2px rgb(165, 165, 165) solid;
     display: flex;
     flex-direction: column;
+    justify-content: flex-end;
     background-color: #f5f6fa;
     margin-bottom: 40px;
-}
-
-#before-operator {
-    height: 25px;
-    margin-right: 16px;
-    font-family: 'Calculator', Arial;
-    font-size: 28px;
-    align-self: flex-end;
 }
 
 #display-text {
