@@ -11,6 +11,9 @@ equals.addEventListener('click', operate);
 const clearButton = document.querySelector('#clear');
 clearButton.addEventListener('click', clear);
 
+const backspace = document.querySelector('#backspace');
+backspace.addEventListener('click', removeEnd);
+
 function add(n1, n2) {
     return n1 + n2;
 }
@@ -90,6 +93,11 @@ function clear() {
     document.getElementById('display-text').textContent = displayText;
 }
 
+function removeEnd() {
+    displayText = displayText.slice(0, displayText.length-1);
+    document.getElementById('display-text').textContent = displayText;
+}
+
 function display(event) {
     const button = event.target;
     const buttonText = button.textContent;
@@ -136,8 +144,8 @@ function operate() {
     }
 
     displayText = result.toString();
-    if(displayText.length > 15) {
-        displayText = displayText.substring(0,15);
+    if(displayText.length > 10) {
+        displayText = displayText.substring(0,11);
     }
     console.log("result = " + result);
     document.getElementById('display-text').textContent = displayText;
