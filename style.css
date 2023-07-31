@@ -57,12 +57,20 @@ body {
 
 #first {
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
+}
+
+#backspace {
+    width: 300px;
 }
 
 .input-button {
     width: 90px;
     height: 90px;
+}
+
+.input-button,
+#backspace {
     font-size: 40px;
     color: black;
     cursor: pointer;
@@ -73,7 +81,9 @@ body {
     background-color: #FFF9DE;
 }
 
-.input-button.operator, .input-button#clear {
+.input-button.operator,
+.input-button#clear,
+#backspace {
     background-color: #FFD3B0;
 }
 
